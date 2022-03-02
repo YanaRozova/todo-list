@@ -26,7 +26,7 @@ const renderTask = () => {
   const tasksList = document.querySelector(".tasks__list");
 
   removeChild(tasksList);
-  allTasks.forEach((item, index) => {
+  allTasks.map((item, index) => {
     const checkbox = document.createElement("input");
     const imageEdit = document.createElement("img");
     const imageDelete = document.createElement("img");
@@ -57,19 +57,15 @@ const renderTask = () => {
 
     imageEdit.className = "tasks__icon";
     imageEdit.src = "img/edit.svg";
-    imageEdit.width = "15";
 
     imageDelete.className = "tasks__icon ";
     imageDelete.src = "img/cross.svg";
-    imageDelete.width = "15";
 
     imageEscape.className = "tasks__icon";
     imageEscape.src = "img/escape.svg";
-    imageEscape.width = "15";
 
     imageDone.className = "tasks__icon";
     imageDone.src = "img/check.svg";
-    imageDone.width = "15";
 
     buttonEdit.className = "button tasks__button";
     buttonEdit.type = "button";

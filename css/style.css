@@ -233,3 +233,8 @@
 .tasks__button:last-child {
   margin-right: 0;
 }
+
+.tasks__icon {
+  width: 15px;
+  height: auto;
+}
