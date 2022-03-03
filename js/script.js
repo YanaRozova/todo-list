@@ -39,6 +39,7 @@ const renderTask = () => {
   allTasks.sort(compareFunction);
 
   removeChild(tasksList);
+
   allTasks.map((item, index) => {
     const checkbox = document.createElement("input");
     const imageEdit = document.createElement("img");
@@ -92,6 +93,7 @@ const renderTask = () => {
         buttonDelete,
         buttonDone
       );
+
     buttonEdit.appendChild(imageEdit);
 
     buttonDelete.className = "button tasks__button";
@@ -247,14 +249,14 @@ const onDoneButtonClick = async (
     }),
   });
 
-  let result = await response.json();
+  await response.json();
 
-  allTasks[index].text = result.data[index].text;
+  allTasks[index].text = taskText.value;
 
   localStorage.setItem("tasks", JSON.stringify(allTasks));
 
   textField.innerHTML = "";
-  textField.innerText = allTasks[index].text;
+  textField.innerText = taskText.value;
 
   container.removeChild(buttonDn);
   container.removeChild(buttonEsc);
