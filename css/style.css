@@ -1,7 +1,8 @@
 /* Fonts */
 @font-face {
   font-family: "OpenSans";
-  src: url("../fonts/Open_Sans/OpenSans-Regular.woff2") format("woff2"), url("../fonts/Open_Sans/OpenSans-Regular.woff") format("woff");
+  src: url("../fonts/Open_Sans/OpenSans-Regular.woff2") format("woff2"),
+    url("../fonts/Open_Sans/OpenSans-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -9,7 +10,8 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url("../fonts/Roboto/Roboto-Bold.woff2") format("woff2"), url("../fonts/Roboto/Roboto-Bold.woff") format("woff");
+  src: url("../fonts/Roboto/Roboto-Bold.woff2") format("woff2"),
+    url("../fonts/Roboto/Roboto-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -144,7 +146,7 @@
 /* Main title */
 
 .main-title {
-  font-family: 'Roboto', 'Arial', sans-serif;
+  font-family: "Roboto", "Arial", sans-serif;
   font-size: var(--fz-main-title);
   line-height: var(--lh-main-title);
   text-transform: uppercase;
