@@ -1,0 +1,242 @@
+/* Fonts */
+@font-face {
+  font-family: "OpenSans";
+  src: url("../fonts/Open_Sans/OpenSans-Regular.woff2") format("woff2"),
+    url("../fonts/Open_Sans/OpenSans-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto/Roboto-Bold.woff2") format("woff2"),
+    url("../fonts/Roboto/Roboto-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Colors */
+
+:root {
+  --cl-txt-main-text: rgb(0, 0, 0);
+  --cl--txt-task-done: rgba(0, 0, 0, 0.3);
+  --cl-txt-contrast-text: rgb(255, 255, 255);
+  --cl-bg-task: rgb(102, 109, 175);
+  --cl-bg-accent: rgb(253, 168, 32);
+  --cl-shd-task: rgb(181, 182, 183);
+}
+
+/* Font sizes */
+
+:root {
+  --fz-main-title: 18px;
+  --lh-main-title: 1;
+  --fz-main-text: 12px;
+  --lh-main-text: 1.5;
+  --fz-tasks-text: 16px;
+  --lh-tasks-text: 1.5;
+}
+
+/* Common styles */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.button {
+  background: none;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.input {
+  margin: 0;
+  padding: 0;
+}
+
+.text {
+  margin: 0;
+}
+
+.img {
+  max-width: 100%;
+}
+
+.title {
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: 1280px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Page */
+
+.page {
+  width: 100%;
+  height: 100%;
+}
+
+/* Body */
+
+.body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "OpenSans", "Arial", sans-serif;
+  font-size: var(--fz-main-text);
+  line-height: var(--lh-main-text);
+  color: var(--cl-txt-main-text);
+}
+
+.body__main {
+  flex: 1 1 auto;
+}
+
+/* Tasks */
+
+/* Header */
+
+.section-header {
+  background: var(--cl-bg-accent);
+}
+
+.tasks__header {
+  margin: 20px 0;
+}
+
+/* Main title */
+
+.main-title {
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: var(--fz-main-title);
+  line-height: var(--lh-main-title);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.tasks__title {
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+/* Input block */
+
+.tasks-fieldset {
+  display: flex;
+  justify-content: center;
+}
+
+.tasks__fieldset {
+  margin-bottom: 30px;
+}
+
+.tasks-fieldset__input {
+  margin-right: 10px;
+}
+
+.add-button {
+  text-transform: uppercase;
+  border-bottom: 3px solid var(--cl-bg-accent);
+}
+
+/* List */
+
+.tasks__list {
+  margin: 0 auto;
+  width: 70%;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Item */
+
+.tasks__item {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+/* Checkbox */
+
+.tasks__checkbox {
+  flex: 0 0 20px;
+  margin-right: 10px;
+}
+
+/* Text */
+
+.tasks-text {
+  flex: 1 1 auto;
+  font-size: var(--fz-tasks-text);
+  line-height: var(--lh-tasks-text);
+}
+
+.tasks-input-text {
+  flex: 1 1 auto;
+  font-size: var(--fz-tasks-text);
+  line-height: var(--lh-tasks-text);
+}
+
+.tasks__text {
+  margin-right: 10px;
+}
+
+.tasks__text--done {
+  color: var(--cl--txt-task-done);
+  text-decoration: line-through;
+}
+
+/* Icon */
+
+.tasks__button {
+  margin-right: 10px;
+}
+
+.tasks__button:last-child {
+  margin-right: 0;
+}
+
+.tasks__icon {
+  width: 15px;
+  height: auto;
+}
