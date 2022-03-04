@@ -5,12 +5,23 @@
 //If task is checked,  it cant'be removed
 //If task is checked, it remove to the end of list
 //Task can be edit. Realized posibility to escape task's change
-//All tasks edit event saved in storage
+//All tasks can be downloaded from server
 
-let allTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let allTasks = [];
 let inputValue = "";
 let inputField = null;
 const addButton = document.querySelector(".add-button");
+
+window.onload = async () => {
+  inputField = document.querySelector(".tasks-input");
+  inputField.onchange = () => updateValue;
+  const response = await fetch("http://localhost:8000/allTasks", {
+    method: "GET",
+  });
+  let result = await response.json();
+  allTasks = result.data || [];
+  renderTask();
+};
 
 const updateValue = (evt) => {
   inputValue = evt.target.value;
@@ -25,7 +36,10 @@ const removeChild = (parentElement) => {
 const renderTask = () => {
   const tasksList = document.querySelector(".tasks__list");
 
+  allTasks.sort(compareFunction);
+
   removeChild(tasksList);
+
   allTasks.map((item, index) => {
     const checkbox = document.createElement("input");
     const imageEdit = document.createElement("img");
@@ -79,6 +93,7 @@ const renderTask = () => {
         buttonDelete,
         buttonDone
       );
+
     buttonEdit.appendChild(imageEdit);
 
     buttonDelete.className = "button tasks__button";
@@ -107,21 +122,52 @@ addButton.onclick = () => {
   onButtonClick();
 };
 
-const onButtonClick = () => {
+const onButtonClick = async () => {
+  inputValue = document.querySelector(".tasks-input").value;
+
+  const response = await fetch("http://localhost:8000/createTask", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      text: inputValue,
+      isCheck: false,
+    }),
+  });
+
+  let result = await response.json();
+
   allTasks.push({
     text: inputValue,
     isCheck: false,
   });
+
   inputValue = "";
   inputField.value = "";
-  allTasks.sort(compareFunction);
+  allTasks = result.data;
   localStorage.setItem("tasks", JSON.stringify(allTasks));
   renderTask();
 };
 
-const onCheckboxChange = (index) => {
+const onCheckboxChange = async (index) => {
   allTasks[index].isCheck = !allTasks[index].isCheck;
-  allTasks.sort(compareFunction);
+
+  const response = await fetch("http://localhost:8000/updateTask", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      id: allTasks[index].id,
+      isCheck: allTasks[index].isCheck,
+    }),
+  });
+
+  await response.json();
+
   localStorage.setItem("tasks", JSON.stringify(allTasks));
   renderTask();
 };
@@ -181,7 +227,7 @@ const onEditButtonClick = (
   }
 };
 
-const onDoneButtonClick = (
+const onDoneButtonClick = async (
   taskText,
   index,
   textField,
@@ -191,12 +237,26 @@ const onDoneButtonClick = (
   buttonDel,
   buttonDn
 ) => {
+  const response = await fetch("http://localhost:8000/updateTask", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      id: allTasks[index].id,
+      text: taskText.value,
+    }),
+  });
+
+  await response.json();
+
   allTasks[index].text = taskText.value;
 
   localStorage.setItem("tasks", JSON.stringify(allTasks));
 
   textField.innerHTML = "";
-  textField.innerText = allTasks[index].text;
+  textField.innerText = taskText.value;
 
   container.removeChild(buttonDn);
   container.removeChild(buttonEsc);
@@ -204,9 +264,17 @@ const onDoneButtonClick = (
   container.appendChild(buttonDel);
 };
 
-const onDeleteButtonClick = (index) => {
-  allTasks.splice(index, 1);
-  localStorage.setItem("tasks", JSON.stringify(allTasks));
+const onDeleteButtonClick = async (index) => {
+  const taskDelId = allTasks[index].id;
+  const response = await fetch(
+    `http://localhost:8000/deleteTask?id=${taskDelId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  let result = await response.json();
+  allTasks = result.data;
   renderTask();
 };
 
@@ -232,10 +300,4 @@ const compareFunction = (itemA, itemB) => {
   if (itemA.isCheck && !itemB.isCheck) return 1;
   if (!itemA.isCheck && itemB.isCheck) return -1;
   if (!itemA.isCheck && !itemB.isCheck) return 0;
-};
-
-window.onload = () => {
-  inputField = document.querySelector(".tasks-input");
-  inputField.addEventListener("change", updateValue);
-  renderTask();
 };
